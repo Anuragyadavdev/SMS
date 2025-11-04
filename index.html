@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSMS Student Portal - Consolidated View</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🎓 SSMS</h2>
+                <p>Student Portal</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard"><span>📊</span> Dashboard</a></li>
+                <li><a href="#courses"><span>📚</span> My Courses</a></li>
+                <li><a href="#attendance"><span>📅</span> Attendance</a></li>
+                <li><a href="#grades"><span>🎯</span> Grades & Results</a></li>
+                <li><a href="#assignments"><span>📝</span> Assignments</a></li>
+                <li><a href="#exams"><span>📋</span> Examinations</a></li>
+                <li><a href="#fee-payment"><span>💳</span> Fee Payment</a></li>
+                <li><a href="#library"><span>📖</span> Library</a></li>
+                <li><a href="# "><span>👤</span> My Profile</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <h1 id="pageTitle">SSMS Student Portal</h1>
+                <div class="user-info">
+                    <div class="user-avatar">S</div>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <section id="attendance" class="portal-section active">
+                <h1>Attendance Records</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e3f2fd;">📅</div>
+                        <h3>Overall Attendance</h3>
+                        <div class="stat-value">87%</div>
+                        <div class="stat-change positive">↑ 2% from last month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e8f5e9;">✓</div>
+                        <h3>Total Present</h3>
+                        <div class="stat-value">234</div>
+                        <div class="stat-subtitle">out of 270 classes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff3e0;">⚠️</div>
+                        <h3>Total Absent</h3>
+                        <div class="stat-value">36</div>
+                        <div class="stat-subtitle">classes missed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce4ec;">🎯</div>
+                        <h3>Required %</h3>
+                        <div class="stat-value">75%</div>
+                        <div class="stat-subtitle">minimum requirement</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Course-wise Attendance</h2>
+                        <select class="filter-select" id="monthFilter">
+                            <option value="all">All Time</option>
+                            <option value="current">Current Month</option>
+                            <option value="previous">Previous Month</option>
+                        </select>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>Total Classes</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CS201</strong></td>
+                                <td>Data Structures</td>
+                                <td>46</td>
+                                <td>4</td>
+                                <td>50</td>
+                                <td>
+                                    <div class="percentage-display">
+                                        92%
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 92%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-success">Excellent</span></td>
+                                <td><button class="btn-small btn-view">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CS202</strong></td>
+                                <td>Database Systems</td>
+                                <td>40</td>
+                                <td>7</td>
+                                <td>47</td>
+                                <td>
+                                    <div class="percentage-display">
+                                        85%
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-success">Good</span></td>
+                                <td><button class="btn-small btn-view">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MA201</strong></td>
+                                <td>Mathematics III</td>
+                                <td>33</td>
+                                <td>12</td>
+                                <td>45</td>
+                                <td>
+                                    <div class="percentage-display">
+                                        73%
+                                        <div class="progress-bar">
+                                            <div class="progress-fill warning" style="width: 73%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-warning">At Risk</span></td>
+                                <td><button class="btn-small btn-view">View Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Recent Attendance</h2>
+                        <select class="filter-select" id="courseFilter">
+                            <option value="all">All Courses</option>
+                        </select>
+                    </div>
+                    <div class="attendance-calendar">
+                        <div class="calendar-day">
+                            <div class="day-date">Mon, Oct 14</div>
+                            <div class="day-status present">Present</div>
+                            <div class="day-course">CS201 - Data Structures</div>
+                        </div>
+                        <div class="calendar-day">
+                            <div class="day-date">Tue, Oct 15</div>
+                            <div class="day-status present">Present</div>
+                            <div class="day-course">CS202 - Database Systems</div>
+                        </div>
+                        <div class="calendar-day">
+                            <div class="day-date">Wed, Oct 16</div>
+                            <div class="day-status absent">Absent</div>
+                            <div class="day-course">MA201 - Mathematics III</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="courses" class="portal-section" style="display: none;">
+                <h1>My Courses</h1>
+                <div class="filter-bar">
+                    <div class="filter-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchCourse" placeholder="Search courses...">
+                        </div>
+                        <select class="filter-select" id="semesterFilter">
+                            <option value="all">All Semesters</option>
+                            <option value="3">Semester 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="courses-grid" id="coursesGrid">
+                    <div class="course-card" data-semester="3" data-status="active">
+                        <div class="course-header">
+                            <span class="course-code">CS201</span>
+                            <h3>Data Structures</h3>
+                            <p>Prof. John Smith</p>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-info-row"><span class="course-info-label">Credits</span><span class="course-info-value">4</span></div>
+                            <div class="course-info-row"><span class="course-info-label">Attendance</span><span class="course-info-value">92%</span></div>
+                            <div class="progress-section">
+                                <div class="progress-label"><span>Course Progress</span><span>65%</span></div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+                            </div>
+                            <div class="course-actions">
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-semester="3" data-status="active">
+                        <div class="course-header">
+                            <span class="course-code">CS202</span>
+                            <h3>Database Systems</h3>
+                            <p>Prof. Sarah Johnson</p>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-info-row"><span class="course-info-label">Credits</span><span class="course-info-value">3</span></div>
+                            <div class="course-info-row"><span class="course-info-label">Attendance</span><span class="course-info-value">85%</span></div>
+                            <div class="progress-section">
+                                <div class="progress-label"><span>Course Progress</span><span>58%</span></div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 58%"></div></div>
+                            </div>
+                            <div class="course-actions">
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-semester="3" data-status="active">
+                        <div class="course-header">
+                            <span class="course-code">CS204</span>
+                            <h3>Operating Systems</h3>
+                            <p>Prof. Emily Brown</p>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-info-row"><span class="course-info-label">Credits</span><span class="course-info-value">4</span></div>
+                            <div class="course-info-row"><span class="course-info-label">Attendance</span><span class="course-info-value">90%</span></div>
+                            <div class="progress-section">
+                                <div class="progress-label"><span>Course Progress</span><span>60%</span></div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+                            </div>
+                            <div class="course-actions">
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="grades" class="portal-section" style="display: none;">
+                <h1>Grades & Results</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e3f2fd;">🎯</div>
+                        <h3>Current CGPA</h3>
+                        <div class="stat-value">8.5</div>
+                        <div class="stat-change positive">↑ 0.3 from last semester</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e8f5e9;">📊</div>
+                        <h3>Current SGPA</h3>
+                        <div class="stat-value">8.7</div>
+                        <div class="stat-subtitle">Semester 3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce4ec;">🏆</div>
+                        <h3>Class Rank</h3>
+                        <div class="stat-value">12</div>
+                        <div class="stat-subtitle">out of 120 students</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Current Semester Grades</h2>
+                        <div class="header-actions">
+                            <select class="filter-select" id="semesterFilter">
+                                <option value="3" selected>Semester 3 (Current)</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="downloadMarksheet()">Download Marksheet</button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                                <th>Credits</th>
+                                <th>Midterm</th>
+                                <th>Assignment</th>
+                                <th>Final</th>
+                                <th>Total</th>
+                                <th>Grade</th>
+                                <th>Grade Point</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CS201</strong></td>
+                                <td>Data Structures</td>
+                                <td>4</td>
+                                <td>42/50</td>
+                                <td>18/20</td>
+                                <td>25/30</td>
+                                <td>85/100</td>
+                                <td><span class="grade-badge grade-a">A</span></td>
+                                <td>9.0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CS203</strong></td>
+                                <td>Web Development</td>
+                                <td>3</td>
+                                <td>45/50</td>
+                                <td>19/20</td>
+                                <td>28/30</td>
+                                <td>92/100</td>
+                                <td><span class="grade-badge grade-a-plus">A+</span></td>
+                                <td>10.0</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="summary-row">
+                                <td colspan="2"><strong>Semester Summary</strong></td>
+                                <td><strong>20</strong></td>
+                                <td colspan="4"></td>
+                                <td><strong>SGPA</strong></td>
+                                <td><strong>8.7</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <section id="exams" class="portal-section" style="display: none;">
+                <h1>Examinations</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff3e0;">📋</div>
+                        <h3>Upcoming Exams</h3>
+                        <div class="stat-value">4</div>
+                        <div class="stat-subtitle">this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e3f2fd;">⏰</div>
+                        <h3>Next Exam</h3>
+                        <div class="stat-value">3 days</div>
+                        <div class="stat-subtitle">Data Structures</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce4ec;">📊</div>
+                        <h3>Average Score</h3>
+                        <div class="stat-value">82%</div>
+                        <div class="stat-change positive">↑ 4% improvement</div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('upcoming')">Upcoming</button>
+                </div>
+
+                <div id="upcomingTab" class="tab-content active">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2>Upcoming Examinations</h2>
+                            <button class="btn btn-primary" onclick="downloadSchedule()">Download Schedule</button>
+                        </div>
+                        <div class="exams-list">
+                            <div class="exam-card urgent">
+                                <div class="exam-date-badge"><div class="date-day">22</div><div class="date-month">OCT</div></div>
+                                <div class="exam-details">
+                                    <div class="exam-header">
+                                        <h3>Data Structures - Midterm Exam</h3>
+                                        <span class="course-tag">CS201</span>
+                                    </div>
+                                    <div class="exam-info">
+                                        <div class="info-item"><span class="info-icon">🕐</span><span>10:00 AM - 12:00 PM</span></div>
+                                        <div class="info-item"><span class="info-icon">📍</span><span>Room 301, Block A</span></div>
+                                    </div>
+                                    <div class="exam-topics"><strong>Topics:</strong> Arrays, Linked Lists, Stacks, Queues, Trees</div>
+                                </div>
+                                <div class="exam-actions">
+                                    <button class="btn btn-secondary">View Syllabus</button>
+                                </div>
+                            </div>
+
+                            <div class="exam-card">
+                                <div class="exam-date-badge"><div class="date-day">25</div><div class="date-month">OCT</div></div>
+                                <div class="exam-details">
+                                    <div class="exam-header">
+                                        <h3>Database Systems - Midterm Exam</h3>
+                                        <span class="course-tag">CS202</span>
+                                    </div>
+                                    <div class="exam-info">
+                                        <div class="info-item"><span class="info-icon">🕐</span><span>2:00 PM - 4:00 PM</span></div>
+                                        <div class="info-item"><span class="info-icon">📍</span><span>Room 205, Block B</span></div>
+                                    </div>
+                                    <div class="exam-topics"><strong>Topics:</strong> SQL, Normalization, ER Diagrams, Transactions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fee-payment" class="portal-section" style="display: none;">
+                <h1>Fee Payment</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e3f2fd;">💰</div>
+                        <h3>Total Fee</h3>
+                        <div class="stat-value">₹85,000</div>
+                        <div class="stat-subtitle">for this semester</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff3e0;">⏰</div>
+                        <h3>Pending Amount</h3>
+                        <div class="stat-value">₹35,000</div>
+                        <div class="stat-subtitle">due by Oct 31</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce4ec;">📋</div>
+                        <h3>Payment Status</h3>
+                        <div class="stat-value">Partial</div>
+                        <div class="stat-change negative">Complete payment soon</div>
+                    </div>
+                </div>
+
+                <div class="fee-summary-card">
+                    <div class="section-header">
+                        <h2>Current Semester Fee Structure</h2>
+                        <span class="semester-badge">Semester 3 - 2024</span>
+                    </div>
+                    <table class="table">
+                        <tfoot>
+                            <tr class="pending-row">
+                                <td><strong>Pending Amount</strong></td>
+                                <td><strong>₹35,000</strong></td>
+                                <td><span class="badge badge-danger">Due</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="payment-action">
+                        <button class="btn btn-primary btn-large" onclick="payNow()">Pay Pending Amount (₹35,000)</button>
+                        <button class="btn btn-secondary" onclick="downloadReceipt()">Download Fee Receipt</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Payment History</h2>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Receipt No</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount Paid</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#REC2024001</strong></td>
+                                <td>Sep 15, 2024</td>
+                                <td>Tuition Fee - Semester 3</td>
+                                <td>₹50,000</td>
+                                <td>Online (UPI)</td>
+                                <td><span class="badge badge-success">Success</span></td>
+                                <td><button class="btn-small">Download</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="library" class="portal-section" style="display: none;">
+                <h1>Library Management</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e3f2fd;">📚</div>
+                        <h3>Books Issued</h3>
+                        <div class="stat-value">3</div>
+                        <div class="stat-subtitle">currently borrowed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff3e0;">⏰</div>
+                        <h3>Due Soon</h3>
+                        <div class="stat-value">1</div>
+                        <div class="stat-subtitle">return within 3 days</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fce4ec;">💰</div>
+                        <h3>Fine Amount</h3>
+                        <div class="stat-value">₹0</div>
+                        <div class="stat-subtitle">no pending fines</div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('issued')">My Issued Books (3)</button>
+                    <button class="tab-btn" onclick="switchTab('search')">Search Books</button>
+                </div>
+
+                <div id="issuedTab" class="tab-content active">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2>Currently Issued Books</h2>
+                        </div>
+                        <div class="books-list">
+                            <div class="book-card">
+                                <div class="book-image"><div class="book-placeholder">📘</div></div>
+                                <div class="book-details">
+                                    <h3>Introduction to Algorithms</h3>
+                                    <p class="book-author">by Thomas H. Cormen</p>
+                                    <div class="book-meta">
+                                        <div class="meta-item"><strong>Due Date:</strong> Oct 31, 2024</div>
+                                        <div class="meta-item"><strong>Days Left:</strong> <span class="days-left">12 days</span></div>
+                                    </div>
+                                    <div class="book-actions">
+                                        <button class="btn btn-primary" onclick="renewBook(1)">Renew Book</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Simple function to switch the active view for demonstration purposes
+        function switchView(viewId) {
+            document.querySelectorAll('.portal-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(viewId).style.display = 'block';
+
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.sidebar-menu a[href="#${viewId}"]`).classList.add('active');
+
+            document.getElementById('pageTitle').textContent = document.querySelector(`#${viewId} h1`).textContent;
+        }
+
+        // Initialize view to Attendance
+        document.addEventListener('DOMContentLoaded', () => {
+            switchView('attendance');
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const viewId = e.target.getAttribute('href').substring(1);
+                    switchView(viewId);
+                });
+            });
+        });
+
+        // Placeholder functions from original HTML
+        function logout() { console.log('Logging out...'); }
+        function downloadMarksheet() { console.log('Downloading Marksheet...'); }
+        function downloadSchedule() { console.log('Downloading Schedule...'); }
+        function payNow() { console.log('Initiating Payment...'); }
+        function downloadReceipt() { console.log('Downloading Receipt...'); }
+        function renewBook(id) { console.log('Renewing book: ' + id); }
+        
+        // Tab switching placeholder
+        function switchTab(tabId) {
+             console.log('Switching to tab: ' + tabId);
+        }
+    </script>
+</body>
+</html>
